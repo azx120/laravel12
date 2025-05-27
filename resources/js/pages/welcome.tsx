@@ -3,8 +3,6 @@ import { Head, Link, usePage } from '@inertiajs/react';
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
-    const { participants } = usePage().props;
-    console.log(participants)
 
     return (
         <>
