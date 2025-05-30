@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('customer_id');
+            $table->string('customer_id');
             $table->string('order_number')->unique();
             $table->enum('status', [
                 'pending',

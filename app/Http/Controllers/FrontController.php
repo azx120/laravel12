@@ -8,13 +8,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
-class ProductsController extends Controller
+class FrontController extends Controller
 {
     public function index()
     {
         //$products = Product::with('Categories')->where('is_active', true)->paginate(12);
         $products = Product::all();
-        return Inertia::render('products/index', compact('products'));
+        return Inertia::render('front/Store', compact('products'));
+
+    }
+
+    public function store()
+    {
+        //$products = Product::with('Categories')->where('is_active', true)->paginate(12);
+        $products = Product::all();
+        return Inertia::render('front/Store', compact('products'));
 
     }
 
@@ -35,36 +43,6 @@ class ProductsController extends Controller
     {
         $categories = Categories::all();
         return Inertia::render('products/create', compact('categories'));
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required',
-            'stock' => 'required',
-            'category_id' => 'required',
-        ],[
-            'name.required' => 'El valor del campo Nombre es obligatorio.',
-            'price.required' => 'El valor del campo pricio es obligatorio.',
-            'stock.required' => 'El valor del campo Cantidad es obligatorio.',
-            'category_id.required' => 'El valor del campo categoria es obligatorio.',
-        ]);
-
-        $product = new Product;
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->stock = $request->stock;
-        $product->category_id = $request->category_id;
-        $product->slug = $request->slug;
-        $product->sku = $request->sku;
-        $product->save();
-
-        if ($request->hasFile('image')) {
-            $product->addMediaFromRequest('image')->toMediaCollection('products');
-        }
-        //return Inertia::render('products/index', compact('products'))->with('success', 'Producto creado correctamente');
-        return redirect()->route('products')->with('success', 'Producto creado correctamente');
     }
 
 

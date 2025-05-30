@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\FrontController;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -30,9 +32,9 @@ Route::get('/token', function (Request $request) {
 });
 
 // Rutas públicas
-Route::get('/tienda', [ProductsController::class, 'index'])->name('home');
-Route::get('/productos', [ProductsController::class, 'index'])->name('products.index');
-Route::get('/productos/{slug}', [ProductsController::class, 'show'])->name('products.show');
+Route::get('/tienda', [FrontController::class, 'store'])->name('store');
+//Route::get('/productos-tienda', [FrontController::class, 'index'])->name('productos-tienda.index');
+Route::get('/productos-tienda/{id}', [FrontController::class, 'show'])->name('producto-tienda.show');
 
 // Rutas del carrito
 Route::prefix('carrito')->group(function () {
@@ -55,9 +57,20 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Rutas de administración
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth'])->group(function () {
     // Rutas de productos
-    Route::resource('products', ProductsController::class)->except(['show']);
+    //Route::resource('products', ProductsController::class)->except(['show']);
+    Route::get('products', [ProductsController::class, 'index'])->name('products');
+    Route::get('products/new', [ProductsController::class, 'create'])->name('products.new');
+    Route::post('products/create', [ProductsController::class, 'store'])->name('products.store');
+    Route::get('products/{id}/edit', [ProductsController::class, 'edit'])->name('products.edit');
+    Route::post('products/{id}/update', [ProductsController::class, 'update'])->name('products.update');
+
+    Route::get('categories', [CategoriesController::class, 'index'])->name('categories');
+    Route::get('categories/new', [CategoriesController::class, 'create'])->name('categories.new');
+    Route::post('categories/create', [CategoriesController::class, 'store'])->name('categories.store');
+    Route::get('categories/{id}/edit', [CategoriesController::class, 'edit'])->name('categories.edit');
+    Route::post('categories/{id}/update', [CategoriesController::class, 'update'])->name('categories.update');
     
     // Rutas de pedidos
     Route::get('/orders', [OrderController::class, 'adminIndex'])->name('admin.orders.index');
