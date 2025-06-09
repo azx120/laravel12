@@ -40,6 +40,13 @@ class FrontController extends Controller
 
     }
 
+    public function agroquimicos()
+    {
+
+        return Inertia::render('front/agroquimicos');
+
+    }
+
     
     public function nosotros()
     {
