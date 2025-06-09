@@ -1,5 +1,5 @@
 import React from 'react';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { Link, } from '@inertiajs/react';
 import { Product } from '@/types';
 import { ShoppingCart } from 'lucide-react';
 
@@ -15,7 +15,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
       <div className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform hover:shadow-md hover:translate-y-[-2px]">
         <div className="flex flex-col sm:flex-row">
           <div className="sm:w-1/3 p-4 flex items-center justify-center">
-            <Link to={`/product/${product.id}`}>
+            <Link href={`/product/${product.id}`}>
               <img 
                 src={product.image} 
                 alt={product.name} 
@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
           </div>
           <div className="sm:w-2/3 p-4">
             <h3 className="text-lg font-semibold text-gray-800 hover:text-orange-500 transition-colors">
-              <Link to={`/product/${product.id}`}>{product.name}</Link>
+              <Link href={`/product/${product.id}`}>{product.name}</Link>
             </h3>
             <p className="text-sm text-gray-500 mb-2">{product.category}</p>
             <div className="text-orange-500 font-bold text-lg mb-3">${product.price.toFixed(2)}</div>

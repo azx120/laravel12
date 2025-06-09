@@ -1,11 +1,15 @@
 import React from 'react';
 import ProductCard from './ProductCard';
+import { Product } from '@/types';
 
 interface ProductGridProps {
   viewMode: 'grid' | 'list';
+  products: Product;
 }
 
 const ProductGrid: React.FC<ProductGridProps> = ({ viewMode, products }) => {
+
+  console.log(products)
 
   return (
     <div className={`
