@@ -26,6 +26,28 @@ class FrontController extends Controller
 
     }
 
+    public function home()
+    {
+
+        return Inertia::render('front/home');
+
+    }
+
+    public function contactenos()
+    {
+
+        return Inertia::render('front/contactenos');
+
+    }
+
+    
+    public function nosotros()
+    {
+
+        return Inertia::render('front/nosotros');
+
+    }
+
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->where('is_active', true)->firstOrFail();

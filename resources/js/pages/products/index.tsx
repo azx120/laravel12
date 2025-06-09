@@ -53,7 +53,7 @@ export default function AllProducts() {
                                             <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">{(element.is_active == 1) ? "activo" : "no activo"}</span>
                                         </td>
                                         <td className="py-2 px-4 border-b border-gray-200">
-                                            <Button><Link href={'products/'+element.id+'/edit'} prefetch>Editar</Link></Button>
+                                            <Button><Link href={'products/'+element.id+'/edit'} prefetch>Editar</Link></Button> 
                                             <button className="text-red-500 hover:text-red-700">Eliminar</button>
                                         </td>
                                     </tr>
