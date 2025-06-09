@@ -47,6 +47,13 @@ class FrontController extends Controller
 
     }
 
+    public function agroforestal()
+    {
+
+        return Inertia::render('front/agroforestal');
+
+    }
+
     
     public function nosotros()
     {

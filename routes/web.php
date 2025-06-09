@@ -37,6 +37,7 @@ Route::get('/home', [FrontController::class, 'home'])->name('store');
 Route::get('/nosotros', [FrontController::class, 'nosotros'])->name('store');
 Route::get('/contactenos', [FrontController::class, 'contactenos'])->name('store');
 Route::get('/agroquimicos', [FrontController::class, 'agroquimicos'])->name('store');
+Route::get('/agroforestal', [FrontController::class, 'agroforestal'])->name('store');
 //Route::get('/productos-tienda', [FrontController::class, 'index'])->name('productos-tienda.index');
 Route::get('/productos-tienda/{id}', [FrontController::class, 'show'])->name('producto-tienda.show');
 
