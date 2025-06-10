@@ -4,7 +4,7 @@ import { Product } from '@/types';
 
 interface ProductGridProps {
   viewMode: 'grid' | 'list';
-  products: Product;
+  products: Product[];
 }
 
 const ProductGrid: React.FC<ProductGridProps> = ({ viewMode, products }) => {
@@ -18,7 +18,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ viewMode, products }) => {
         : 'space-y-6'
       }
     `}>
-      {products.map((product:any) => (
+      {products.map((product) => (
         <ProductCard 
           key={product.id} 
           product={product} 

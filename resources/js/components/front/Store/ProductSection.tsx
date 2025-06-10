@@ -4,6 +4,8 @@ import FilterSidebar from './FilterSidebar';
 import ProductGrid from './ProductGrid';
 import ProductControls from './ProductControls';
 
+
+
 const ProductSection: React.FC = ({products}) => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [itemsPerPage, setItemsPerPage] = useState<number>(12);

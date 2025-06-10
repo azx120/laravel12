@@ -29,7 +29,8 @@ class FrontController extends Controller
     public function home()
     {
 
-        return Inertia::render('front/home');
+        $products = Product::all();
+        return Inertia::render('front/home', compact('products'));
 
     }
 

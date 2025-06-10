@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
             <h3 className="text-lg font-semibold text-gray-800 hover:text-orange-500 transition-colors">
               <Link href={`/product/${product.id}`}>{product.name}</Link>
             </h3>
-            <p className="text-sm text-gray-500 mb-2">{product.category}</p>
+            <p className="text-sm text-gray-500 mb-2">{product.category_id}</p>
             <div className="text-orange-500 font-bold text-lg mb-3">${product.price.toFixed(2)}</div>
             <p className="text-gray-600 text-sm mb-4">{product.description}</p>
             <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded flex items-center text-sm transition-colors">

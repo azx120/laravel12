@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+const BASE_URL = import.meta.env.VITE_APP_URL || 'http://localhost:8000';
+
 const slides = [
   {
     id: 1,
     title: 'MEJORA TUS PLANTACIONES CONFÍA EN NOSOTROS',
     subtitle: 'Somos una empresa dedicada a brindar productos para todas tus necesidades. Contáctanos',
     buttonText: 'CONTÁCTANOS',
-    image: 'https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    image: `${BASE_URL}/storage/img/slider-1.jpg`
   },
   {
     id: 2,
@@ -58,6 +60,7 @@ const HeroSlider: React.FC = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url('${slide.image}')` }}
           >
+            <img src="/storage/slider-1.jpg" className='w-20 h-20 absolute top-0 left-0 z-99' alt="" />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
           </div>
           <div className="container mx-auto px-4 h-full flex items-center relative">
