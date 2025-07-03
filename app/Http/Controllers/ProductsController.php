@@ -7,6 +7,7 @@ use App\Models\Categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class ProductsController extends Controller
 {
@@ -58,6 +59,45 @@ class ProductsController extends Controller
         $product->category_id = $request->category_id;
         $product->slug = $request->slug;
         $product->sku = $request->sku;
+
+        if ($request->hasFile('img')) {
+            $uploadPath = public_path('/storage/productos/');
+            $file = $request->file('img');
+            $fileName = $file->getClientOriginalName();
+            $file->move($uploadPath, $fileName);
+            $url = asset('/storage/productos/'.$fileName);
+            $product->image = $url;
+        }else{
+            $product->image = '';
+        }
+        
+        if ($request->hasFile('gallery')) {
+
+            $arrayGallery = [];
+
+            foreach($request->gallery as $file){
+
+                $uploadPath = public_path('/storage/productos/gallery/');
+                $uuid = Str::uuid(4);
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $uuid . '.' . $extension;
+                $file->move($uploadPath, $fileName);
+                $url = asset('/storage/productos/gallery/'.$fileName);
+                
+                array_push($arrayGallery, [
+                        "id" => $uuid,
+                        "name" => $fileName,
+                        "url" => $url,
+                ]);
+
+                $product->gallery = $url;
+
+                $product->gallery =json_encode($arrayGallery);
+            }
+        }else{
+            $product->gallery = "[]";
+        }
+
         $product->save();
 
         if ($request->hasFile('image')) {
@@ -119,6 +159,22 @@ class ProductsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        for ($i = 1; $i <= $request->gallery_salida_chasis; $i++) {
+                if ($request->hasFile('photoField_salida_chasis'.$i)) {
+                    $uploadPath = public_path('/storage/chasis/');
+                    $file = $request->file('photoField_salida_chasis'.$i);
+                    $extension = $file->getClientOriginalExtension();
+                    $uuid = Str::uuid(4);
+                    $fileName = $uuid . '.' . $extension;
+                    $file->move($uploadPath, $fileName);
+                    $url = asset('/storage/chasis/'.$fileName);
+                
+                    array_push($arrayGallery, [
+                        "id" => $uuid,
+                        "name" => $fileName,
+                        "url" => $url,
+                    ]);
+                }
+            }
     }
 }

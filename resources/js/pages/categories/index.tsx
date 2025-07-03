@@ -26,7 +26,7 @@ export default function AllCategories() {
     console.log(categories)
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Productos" />
+            <Head title="Categorias" />
             <div className="overflow-x-auto">
                 <Button><Link href={'categories/new'} prefetch>Crear</Link></Button>
             </div>
@@ -36,8 +36,6 @@ export default function AllCategories() {
                         <thead>
                             <tr className="bg-gray-100">
                                 <th className="py-2 px-4 border-b border-gray-200 text-left text-gray-600">Nombre</th>
-                                <th className="py-2 px-4 border-b border-gray-200 text-left text-gray-600">Precio</th>
-                                <th className="py-2 px-4 border-b border-gray-200 text-left text-gray-600">Sku</th>
                                 <th className="py-2 px-4 border-b border-gray-200 text-left text-gray-600">Estado</th>
                                 <th className="py-2 px-4 border-b border-gray-200 text-left text-gray-600">Acciones</th>
                             </tr>
@@ -47,8 +45,6 @@ export default function AllCategories() {
                                 return (
                                     <tr key={index} className="hover:bg-gray-50">
                                         <td className="py-2 px-4 border-b border-gray-200">{element.name}</td>
-                                        <td className="py-2 px-4 border-b border-gray-200">$ {element.price}</td>
-                                        <td className="py-2 px-4 border-b border-gray-200">{element.sku}</td>
                                         <td className="py-2 px-4 border-b border-gray-200">
                                             <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">{(element.is_active == 1) ? "activo" : "no activo"}</span>
                                         </td>

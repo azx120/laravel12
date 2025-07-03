@@ -25,7 +25,7 @@ export default function CategoriesLayout({ children }: PropsWithChildren) {
 
     return (
         <div className="px-4 py-6">
-            <Heading title="Productos" description="" />
+            <Heading title="Categorias" description="" />
 
             <section className="">{children}</section>
 

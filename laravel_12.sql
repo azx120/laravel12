@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-06-2025 a las 04:35:42
--- Versión del servidor: 10.4.22-MariaDB
+-- Tiempo de generación: 03-07-2025 a las 19:51:10
+-- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,10 +28,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cache` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('laravel_cache_user@gmail.com|127.0.0.1', 'i:1;', 1751398856),
+('laravel_cache_user@gmail.com|127.0.0.1:timer', 'i:1751398856;', 1751398856);
 
 -- --------------------------------------------------------
 
@@ -40,8 +48,8 @@ CREATE TABLE `cache` (
 --
 
 CREATE TABLE `cache_locks` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -52,10 +60,10 @@ CREATE TABLE `cache_locks` (
 --
 
 CREATE TABLE `categories` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -67,7 +75,13 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
-('01971df4-7a0e-72ec-9965-05c48f1835c3', 'categoria 2', 'categoria', NULL, 1, '2025-05-30 01:30:50', '2025-05-30 01:34:33', NULL);
+('01971df4-7a0e-72ec-9965-05c48f1835c3', 'Agroquímicos', 'categoria', NULL, 1, '2025-05-30 01:30:50', '2025-07-03 21:45:47', NULL),
+('0197c7c3-64c6-724c-a0be-77e8d89e4574', 'Cortasetos', 'categoria 1', NULL, 1, '2025-07-02 02:52:40', '2025-07-03 21:46:02', NULL),
+('0197d165-866c-7237-8ce4-59d942c762d4', 'Enmienda', 'Enmienda', NULL, 1, '2025-07-03 21:46:21', '2025-07-03 21:46:21', NULL),
+('0197d165-9f62-700d-9be3-6219ae1f791e', 'Fumigadora', 'Fumigadora', NULL, 1, '2025-07-03 21:46:27', '2025-07-03 21:46:27', NULL),
+('0197d165-b855-73f6-9aca-7f97f17697eb', 'Motosierras', 'Motosierras', NULL, 1, '2025-07-03 21:46:33', '2025-07-03 21:46:33', NULL),
+('0197d165-d282-7045-a84f-422272639c65', 'Podadora de altura', 'Podadora de altura', NULL, 1, '2025-07-03 21:46:40', '2025-07-03 21:46:40', NULL),
+('0197d165-f8ea-72b3-bee9-6ca7b93647c3', 'Sopladoras', 'Sopladoras', NULL, 1, '2025-07-03 21:46:50', '2025-07-03 21:46:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -76,14 +90,14 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `is_active`, `cre
 --
 
 CREATE TABLE `customers` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `state` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `zip_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'México',
+  `phone` varchar(255) NOT NULL,
+  `address` text NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
+  `zip_code` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL DEFAULT 'México',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -97,11 +111,11 @@ CREATE TABLE `customers` (
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -112,9 +126,9 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `jobs` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
   `attempts` tinyint(3) UNSIGNED NOT NULL,
   `reserved_at` int(10) UNSIGNED DEFAULT NULL,
   `available_at` int(10) UNSIGNED NOT NULL,
@@ -128,13 +142,13 @@ CREATE TABLE `jobs` (
 --
 
 CREATE TABLE `job_batches` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `total_jobs` int(11) NOT NULL,
   `pending_jobs` int(11) NOT NULL,
   `failed_jobs` int(11) NOT NULL,
-  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `options` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
   `cancelled_at` int(11) DEFAULT NULL,
   `created_at` int(11) NOT NULL,
   `finished_at` int(11) DEFAULT NULL
@@ -148,7 +162,7 @@ CREATE TABLE `job_batches` (
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -175,19 +189,19 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) NOT NULL,
   `customer_id` bigint(20) UNSIGNED NOT NULL,
-  `order_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('pending','processing','on_hold','completed','cancelled','refunded','failed') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `order_number` varchar(255) NOT NULL,
+  `status` enum('pending','processing','on_hold','completed','cancelled','refunded','failed') NOT NULL DEFAULT 'pending',
   `total` decimal(10,2) NOT NULL,
   `subtotal` decimal(10,2) NOT NULL,
   `tax` decimal(10,2) NOT NULL DEFAULT 0.00,
   `shipping_cost` decimal(10,2) NOT NULL DEFAULT 0.00,
-  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'bank_transfer',
-  `bank_transfer_details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shipping_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `billing_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `notes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_method` varchar(255) NOT NULL DEFAULT 'bank_transfer',
+  `bank_transfer_details` text DEFAULT NULL,
+  `shipping_address` text NOT NULL,
+  `billing_address` text NOT NULL,
+  `notes` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -200,7 +214,7 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `order_product` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) NOT NULL,
   `order_id` bigint(20) UNSIGNED NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -216,13 +230,13 @@ CREATE TABLE `order_product` (
 --
 
 CREATE TABLE `participants` (
-  `id` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ci` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastname` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city_id` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(200) NOT NULL,
+  `ci` varchar(250) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `lastname` varchar(250) NOT NULL,
+  `phone` varchar(250) NOT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `city_id` varchar(200) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -245,8 +259,8 @@ INSERT INTO `participants` (`id`, `ci`, `name`, `lastname`, `phone`, `email`, `c
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -257,16 +271,16 @@ CREATE TABLE `password_reset_tokens` (
 --
 
 CREATE TABLE `payments` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) NOT NULL,
   `order_id` bigint(20) UNSIGNED NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'bank_transfer',
-  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` enum('pending','completed','failed','refunded') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
-  `bank_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `account_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `account_holder` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_proof` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_method` varchar(255) NOT NULL DEFAULT 'bank_transfer',
+  `transaction_id` varchar(255) DEFAULT NULL,
+  `status` enum('pending','completed','failed','refunded') NOT NULL DEFAULT 'pending',
+  `bank_name` varchar(255) DEFAULT NULL,
+  `account_number` varchar(255) DEFAULT NULL,
+  `account_holder` varchar(255) DEFAULT NULL,
+  `payment_proof` varchar(255) DEFAULT NULL,
   `payment_date` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -281,11 +295,11 @@ CREATE TABLE `payments` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -299,34 +313,21 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 CREATE TABLE `products` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` varchar(255) NOT NULL,
+  `category_id` varchar(200) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `stock` int(11) NOT NULL DEFAULT 0,
-  `sku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sku` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `gallery` text DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `products`
---
-
-INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `description`, `price`, `stock`, `sku`, `image`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
-('01971828-3fc3-70b0-865f-734d545008ab', 'id', 'producto editado', '0016', NULL, 2.00, 2, '0016', NULL, 1, '2025-05-28 22:29:40', '2025-05-29 23:57:18', '2025-05-28 18:29:40'),
-('01971839-fa59-73b1-a11d-a7b9c17c6d82', 'id', 'producto', '001', NULL, 10.00, 5, '001', NULL, 1, '2025-05-28 22:49:02', '2025-05-28 22:49:02', '2025-05-28 18:49:02'),
-('0197183b-429a-72e6-9109-f3f60840615e', 'id', 'producto 2', '002', NULL, 11.00, 2, '002', NULL, 1, '2025-05-28 22:50:26', '2025-05-28 22:50:26', '2025-05-28 18:50:26'),
-('0197183b-e338-717a-87eb-bdcdfecb188e', 'id', 'producto 4', '005', NULL, 10.00, 5, '005', NULL, 1, '2025-05-28 22:51:07', '2025-05-28 22:51:07', '2025-05-28 18:51:07'),
-('0197183c-6f07-7386-9280-f77ed88054b5', 'id', 'producto 5', '006', NULL, 10.00, 5, '006', NULL, 1, '2025-05-28 22:51:43', '2025-05-28 22:51:43', '2025-05-28 18:51:43'),
-('0197183c-e162-71cc-952f-aba809ae3bea', 'id', 'producto final', '007', NULL, 25.00, 10, '00-', NULL, 1, '2025-05-28 22:52:12', '2025-05-29 23:57:38', '2025-05-28 18:52:12'),
-('01971da1-7e9d-73e5-9097-98274d7f4d17', 'id12', 'nuevo', '0015', NULL, 15.00, 5, '0015', NULL, 1, '2025-05-30 00:00:12', '2025-05-30 01:17:37', '2025-05-29 20:00:12'),
-('01971de8-c945-70a7-b554-4bb9e525cc00', 'id', 'nuevo 22', '0018', NULL, 15.00, 5, '00128', NULL, 1, '2025-05-30 01:18:04', '2025-05-30 01:18:12', '2025-05-29 21:18:04');
 
 -- --------------------------------------------------------
 
@@ -335,11 +336,11 @@ INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `description`, `pri
 --
 
 CREATE TABLE `sessions` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
   `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -348,7 +349,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('FaJ94mwre5McHEgPUfipPSV5iB1KKxsEuLBXsd8l', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZ29mZ1ZCbFJWV0NqYzZyUFVtTUo3eVRJaTREMmhYSThabGRHczkwaiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1749044003);
+('rELifeDCvjBtiZUaTAURK6vXuaiNsR94bu2iBMa5', 0, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRHpERUg2OW9LWG8yOHNzcFlQTVVSeTFNVFZtTVNsVGVZanBXbWVQMiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjA7fQ==', 1751565015);
 
 -- --------------------------------------------------------
 
@@ -357,14 +358,14 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 --
 
 CREATE TABLE `users` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL DEFAULT 'user',
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -374,7 +375,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `role`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-('d2485d50-02a8-43ca-a777-4ea6e18c3fc6', 'VfnOJZwfCP', 'admin@gmail.com', 'user', 1, NULL, '$2y$12$uDwVEAodXQ/rBVT1w35qCOm0F1gLvyU7qooHBc/dBcEOKFgh02ONe', 'ACy4Y38WIEBZPLK91aaJxbgcFR25NTxf8KNvUObPBZWwZF6uxnrlUavAzhWy', NULL, NULL);
+('d2485d50-02a8-43ca-a777-4ea6e18c3fc6', 'VfnOJZwfCP', 'admin@gmail.com', 'user', 1, NULL, '$2y$12$uDwVEAodXQ/rBVT1w35qCOm0F1gLvyU7qooHBc/dBcEOKFgh02ONe', '7CJJ6E4ycrxtn6vF58DJjmCBb34bLt3lpdZ3NJXpVbUSi7eSyPwJDqji8O59', NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -474,9 +475,7 @@ ALTER TABLE `personal_access_tokens`
 -- Indices de la tabla `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `products_slug_unique` (`slug`),
-  ADD UNIQUE KEY `products_sku_unique` (`sku`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `sessions`
