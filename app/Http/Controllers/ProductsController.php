@@ -100,9 +100,9 @@ class ProductsController extends Controller
 
         $product->save();
 
-        if ($request->hasFile('image')) {
+        /*if ($request->hasFile('image')) {
             $product->addMediaFromRequest('image')->toMediaCollection('products');
-        }
+        }*/
         //return Inertia::render('products/index', compact('products'))->with('success', 'Producto creado correctamente');
         return redirect()->route('products')->with('success', 'Producto creado correctamente');
     }
