@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\Participants;
+use App\Models\Categories; 
+use App\Models\Product;
+
 
 class HomeController extends Controller
 {
@@ -13,7 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $participants = Participants::all();
-        return Inertia::render('welcome', compact('participants'));
+        $products = Product::all();
+        $categories = Categories::all();
+
+        return Inertia::render('front/Store', compact('products', 'categories'));
     }
 }

@@ -1,15 +1,24 @@
 import React from 'react';
 import ProductCard from './ProductCard';
-import { Product } from '@/types';
+import { Product, Category } from '@/types';
 
 interface ProductGridProps {
   viewMode: 'grid' | 'list';
   products: Product[];
+  categories?: Category[]; // Hacemos categories opcional para mantener compatibilidad
 }
 
-const ProductGrid: React.FC<ProductGridProps> = ({ viewMode, products }) => {
-
-  console.log(products)
+const ProductGrid: React.FC<ProductGridProps> = ({ 
+  viewMode, 
+  products,
+  categories = [] // Valor por defecto array vacío
+}) => {
+  // Función para obtener el nombre de la categoría
+  const getCategoryName = (categoryId: string) => {
+    if (!categories || categories.length === 0) return '';
+    const category = categories.find(cat => cat.id === categoryId);
+    return category ? category.name : '';
+  };
 
   return (
     <div className={`
@@ -22,7 +31,8 @@ const ProductGrid: React.FC<ProductGridProps> = ({ viewMode, products }) => {
         <ProductCard 
           key={product.id} 
           product={product} 
-          viewMode={viewMode} 
+          viewMode={viewMode}
+          categoryName={getCategoryName(product.category_id)} // Pasamos el nombre de la categoría
         />
       ))}
     </div>

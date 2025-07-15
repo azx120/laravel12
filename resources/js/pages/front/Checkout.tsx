@@ -21,7 +21,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="bg-white flex flex-col min-h-screen">
       {/* Hero Banner */}
       <div className="relative h-64">
         <div 

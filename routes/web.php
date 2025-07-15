@@ -38,6 +38,11 @@ Route::get('/nosotros', [FrontController::class, 'nosotros'])->name('store');
 Route::get('/contactenos', [FrontController::class, 'contactenos'])->name('store');
 Route::get('/agroquimicos', [FrontController::class, 'agroquimicos'])->name('store');
 Route::get('/agroforestal', [FrontController::class, 'agroforestal'])->name('store');
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout/exito/{orderNumber}', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::post('/ordenes/{order}/comprobante', [CheckoutController::class, 'uploadPaymentProof'])->name('orders.upload-proof');
 //Route::get('/productos-tienda', [FrontController::class, 'index'])->name('productos-tienda.index');
 Route::get('/productos-tienda/{id}', [FrontController::class, 'show'])->name('producto-tienda.show');
 
@@ -51,10 +56,7 @@ Route::prefix('carrito')->group(function () {
 
 // Rutas de checkout
 Route::middleware(['auth'])->group(function () {
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
-    Route::get('/checkout/exito/{orderNumber}', [CheckoutController::class, 'success'])->name('checkout.success');
-    Route::post('/ordenes/{order}/comprobante', [CheckoutController::class, 'uploadPaymentProof'])->name('orders.upload-proof');
+    
     
     // Rutas de pedidos del cliente
     Route::get('/mis-pedidos', [OrderController::class, 'index'])->name('orders.index');

@@ -22,7 +22,9 @@ class FrontController extends Controller
     {
         //$products = Product::with('Categories')->where('is_active', true)->paginate(12);
         $products = Product::all();
-        return Inertia::render('front/Store', compact('products'));
+        $categories = Categories::all();
+
+        return Inertia::render('front/Store', compact('products', 'categories'));
 
     }
 

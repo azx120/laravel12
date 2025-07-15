@@ -6,13 +6,17 @@ interface ProductControlsProps {
   setViewMode: React.Dispatch<React.SetStateAction<'grid' | 'list'>>;
   itemsPerPage: number;
   setItemsPerPage: React.Dispatch<React.SetStateAction<number>>;
+  sortOption: string;
+  setSortOption: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ProductControls: React.FC<ProductControlsProps> = ({ 
   viewMode, 
   setViewMode,
   itemsPerPage,
-  setItemsPerPage
+  setItemsPerPage,
+  sortOption,
+  setSortOption
 }) => {
   return (
     <div className="flex flex-wrap justify-between items-center mb-6">
@@ -45,12 +49,16 @@ const ProductControls: React.FC<ProductControlsProps> = ({
           </button>
         </div>
         
-        <select className="border rounded-md px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500">
-          <option>Default sorting</option>
-          <option>Sort by popularity</option>
-          <option>Sort by average rating</option>
-          <option>Sort by price: low to high</option>
-          <option>Sort by price: high to low</option>
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className="border rounded-md px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
+        >
+          <option value="default">Default sorting</option>
+          <option value="price-low-high">Sort by price: low to high</option>
+          <option value="price-high-low">Sort by price: high to low</option>
+          <option value="name-asc">Sort by name (A-Z)</option>
+          <option value="name-desc">Sort by name (Z-A)</option>
         </select>
       </div>
     </div>
