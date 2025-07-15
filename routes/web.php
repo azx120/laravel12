@@ -8,6 +8,9 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\VarietyProductsController;
+use App\Http\Controllers\AttributeProductsController;
+
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -81,6 +84,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/orders', [OrderController::class, 'adminIndex'])->name('admin.orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'adminShow'])->name('admin.orders.show');
     Route::put('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.update-status');
+
+
+    Route::post('/varietys/create_post', [VarietyProductsController::class, 'create_post'])->name('products.varietys-create_post');
+    Route::post('/attributes/create_post', [AttributeProductsController::class, 'create_post'])->name('products.attributes-create_post');
+
 });
 
 

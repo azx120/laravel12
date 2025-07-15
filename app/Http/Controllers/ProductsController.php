@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\AttributeProducts;
+use App\Models\VarietyProducts;
 use App\Models\Categories; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -34,8 +36,10 @@ class ProductsController extends Controller
 
     public function create()
     {
+        $attributes = AttributeProducts::all();
+        $varietys = VarietyProducts::all();
         $categories = Categories::all();
-        return Inertia::render('products/create', compact('categories'));
+        return Inertia::render('products/create', compact('categories', 'attributes', 'varietys'));
     }
 
     public function store(Request $request)
@@ -99,6 +103,18 @@ class ProductsController extends Controller
         }
 
         $product->save();
+
+        if(!empty($request->variety)){
+            foreach($request->variety as $variety){
+                $attributes = new AttributeProducts;
+                $attributes->id_product = $product->id;
+                $attributes->id_variety = $variety['id'];
+                $attributes->array_attributes = json_encode($variety['attributes']);
+                $attributes->save();
+            }
+        
+        }
+        
 
         /*if ($request->hasFile('image')) {
             $product->addMediaFromRequest('image')->toMediaCollection('products');
