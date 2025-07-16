@@ -6,7 +6,10 @@ use App\Models\Product;
 use App\Models\Categories; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use App\Models\AttributeProducts;
+use App\Models\VarietyProducts;
 
 class FrontController extends Controller
 {
@@ -21,12 +24,60 @@ class FrontController extends Controller
     public function store()
     {
         //$products = Product::with('Categories')->where('is_active', true)->paginate(12);
-        $products = Product::all();
         $categories = Categories::all();
+
+        $products = Product::all();
+        if(!empty($products)){
+            foreach($products as $product){
+                $attributes = AttributeProducts::where('id_product', $product->id)->get();
+                if(!empty($attributes)){
+                    foreach($attributes as $attribute){
+                        $varierty = VarietyProducts::where('id', $attribute->id_variety)->first();
+                        if(!empty($varierty)){
+                            $attribute->name_variety = $varierty->name;
+                        }
+                        $attribute->array_attributes = json_decode($attribute->array_attributes);
+                    }
+                    
+
+                    $product->attributes = $attributes;
+                }
+            }
+        }
 
         return Inertia::render('front/Store', compact('products', 'categories'));
 
     }
+
+    public function singleProduct($id)
+    {
+        $products_all = Product::all();
+
+        $product = Product::where('id', $id)->first();
+        if(!empty($product)){
+            $attributes = AttributeProducts::where('id_product', $product->id)->get();
+            if(!empty($attributes)){
+                foreach($attributes as $attribute){
+                    $varierty = VarietyProducts::where('id', $attribute->id_variety)->first();
+                    if(!empty($varierty)){
+                        $attribute->name_variety = $varierty->name;
+                    }
+                    $attribute->array_attributes = json_decode($attribute->array_attributes);
+                }
+                
+                $product->attributes = $attributes;
+            }
+            $categories = Categories::where('id', $product->category_id)->first();
+            if(!empty($categories)){
+                $product->category_name = $categories->name;
+            }
+
+            
+        }
+        return Inertia::render('front/ProductDetail', compact('product', 'products_all'));
+
+    }
+
 
     public function home()
     {

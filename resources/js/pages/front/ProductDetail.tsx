@@ -7,26 +7,21 @@ import { Head, Link, useForm, usePage } from '@inertiajs/react';
 
 
 const ProductDetail: React.FC = () => {
-  
-  const { id } = useParams();
-  const { products } = usePage().props;
-  const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(1);
-  const [product, setProduct] = useState<Product | null>(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const { product, products_all } = usePage().props;
+
+  const [quantity, setQuantity] = useState(1);
+  const [products, setProduct] = useState<Product | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  console.log(product)
   useEffect(() => {
-    const productId = parseInt(id || '0');
-    const foundProduct = products.find(p => p.id === productId);
-    
-    if (!foundProduct) {
-      navigate('/');
-      return;
-    }
-    
+    const productId = parseInt(product.id || '0');
+    const foundProduct = products_all.find(p => p.id === productId);
+
+
     setProduct(foundProduct);
     setCurrentImageIndex(0);
-  }, [id, navigate]);
+  }, [product.id]);
 
   if (!product) {
     return null;
@@ -64,7 +59,7 @@ const ProductDetail: React.FC = () => {
           <div className="lg:w-3/5">
             <div className="relative bg-white p-12 rounded-lg shadow-sm">
               {hasMultipleImages && (
-                <button 
+                <button
                   onClick={prevImage}
                   className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md text-gray-400 hover:text-orange-500"
                 >
@@ -77,7 +72,7 @@ const ProductDetail: React.FC = () => {
                 className="max-h-[600px] w-full object-contain mx-auto"
               />
               {hasMultipleImages && (
-                <button 
+                <button
                   onClick={nextImage}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md text-gray-400 hover:text-orange-500"
                 >
@@ -85,16 +80,15 @@ const ProductDetail: React.FC = () => {
                 </button>
               )}
             </div>
-            
+
             {hasMultipleImages && (
               <div className="flex justify-center gap-4 mt-6">
                 {images.map((img, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`w-24 h-24 border-2 rounded-lg overflow-hidden ${
-                      currentImageIndex === index ? 'border-orange-500' : 'border-gray-200'
-                    }`}
+                    className={`w-24 h-24 border-2 rounded-lg overflow-hidden ${currentImageIndex === index ? 'border-orange-500' : 'border-gray-200'
+                      }`}
                   >
                     <img
                       src={img}
@@ -111,7 +105,7 @@ const ProductDetail: React.FC = () => {
           <div className="lg:w-2/5">
             <h1 className="text-4xl font-bold text-gray-900 mb-6">{product.name}</h1>
             <div className="text-3xl text-orange-500 font-bold mb-8">
-              ${product.price.toFixed(2)}
+              ${product.price}
             </div>
 
             <div className="space-y-6 mb-8">
@@ -136,7 +130,7 @@ const ProductDetail: React.FC = () => {
 
             <div className="flex items-center gap-4 mb-8">
               <div className="flex items-center border rounded-md">
-                <button 
+                <button
                   className="px-4 py-3 text-gray-600 hover:text-orange-500 text-lg"
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 >
@@ -148,7 +142,7 @@ const ProductDetail: React.FC = () => {
                   onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
                   className="w-20 text-center border-x py-3 text-lg"
                 />
-                <button 
+                <button
                   className="px-4 py-3 text-gray-600 hover:text-orange-500 text-lg"
                   onClick={() => setQuantity(quantity + 1)}
                 >
@@ -212,7 +206,7 @@ const ProductDetail: React.FC = () => {
       </div>
 
       {/* Related Products */}
-      <RelatedProducts currentProduct={product} products={products} />
+      <RelatedProducts currentProduct={product} products={products_all} />
     </div>
   );
 };

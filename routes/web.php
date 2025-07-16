@@ -35,15 +35,18 @@ Route::get('/token', function (Request $request) {
 });
 
 // Rutas públicas
-Route::get('/tienda', [FrontController::class, 'store'])->name('store');
+Route::get('/singleProduct/{id}', [FrontController::class, 'singleProduct'])->name('singleProduct');
+
 Route::get('/home', [FrontController::class, 'home'])->name('store');
 Route::get('/nosotros', [FrontController::class, 'nosotros'])->name('store');
 Route::get('/contactenos', [FrontController::class, 'contactenos'])->name('store');
 Route::get('/agroquimicos', [FrontController::class, 'agroquimicos'])->name('store');
 Route::get('/agroforestal', [FrontController::class, 'agroforestal'])->name('store');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    
     Route::get('/checkout/exito/{orderNumber}', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::post('/ordenes/{order}/comprobante', [CheckoutController::class, 'uploadPaymentProof'])->name('orders.upload-proof');
 //Route::get('/productos-tienda', [FrontController::class, 'index'])->name('productos-tienda.index');
