@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-07-2025 a las 19:51:10
+-- Tiempo de generación: 16-07-2025 a las 20:37:33
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,6 +24,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `attribute_products`
+--
+
+CREATE TABLE `attribute_products` (
+  `id` varchar(255) NOT NULL,
+  `array_attributes` text NOT NULL,
+  `id_product` varchar(200) DEFAULT NULL,
+  `id_variety` varchar(200) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `attribute_products`
+--
+
+INSERT INTO `attribute_products` (`id`, `array_attributes`, `id_product`, `id_variety`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('01981014-4717-72d6-96e3-a9957334d95f', '[{\"title\":\"1kg\",\"qty\":\"3\",\"price\":\"10\"}]', '01981014-4711-73b7-b17c-d04f8e630d05', '0197fa5d-b904-7019-aa38-b6a88559ddb2', '2025-07-16 01:53:41', '2025-07-16 01:53:41', '2025-07-15 21:53:41');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `cache`
 --
 
@@ -38,8 +61,8 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('laravel_cache_user@gmail.com|127.0.0.1', 'i:1;', 1751398856),
-('laravel_cache_user@gmail.com|127.0.0.1:timer', 'i:1751398856;', 1751398856);
+('laravel_cache_user@gmail.com|127.0.0.1', 'i:1;', 1752591054),
+('laravel_cache_user@gmail.com|127.0.0.1:timer', 'i:1752591054;', 1752591054);
 
 -- --------------------------------------------------------
 
@@ -329,6 +352,13 @@ CREATE TABLE `products` (
   `deleted_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `products`
+--
+
+INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `description`, `price`, `stock`, `sku`, `image`, `gallery`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('01981014-4711-73b7-b17c-d04f8e630d05', '01971df4-7a0e-72ec-9965-05c48f1835c3', 'producto', '007', NULL, 5.00, 3, '001', 'http://127.0.0.1:8000/storage/productos/0100e95004038000_2025-07-13_11-27-08-222.png', '[]', 1, '2025-07-16 01:53:41', '2025-07-16 01:53:41', '2025-07-15 21:53:41');
+
 -- --------------------------------------------------------
 
 --
@@ -349,7 +379,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('rELifeDCvjBtiZUaTAURK6vXuaiNsR94bu2iBMa5', 0, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRHpERUg2OW9LWG8yOHNzcFlQTVVSeTFNVFZtTVNsVGVZanBXbWVQMiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjA7fQ==', 1751565015);
+('WlheWb2K9wKRfXmg7Avn2mr3GfHJUzoGzpGrOPVH', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoibHZHM2NKd3pFZHNLY0w2YUxybVRURjVIRzM3bDNHVE8zUkZmdXBSQyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1752617041),
+('x1pWQehBR7mWEDlXmIVSILcEVYRwToI2mIwubAyC', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUngxWUV5QVhSWVNXZTJNUlFpdDB3OGVPSFFvdUFCQ3BycGoxVzZkTiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zaW5nbGVQcm9kdWN0LzAxOTgxMDE0LTQ3MTEtNzNiNy1iMTdjLWQwNGY4ZTYzMGQwNSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1752690903);
 
 -- --------------------------------------------------------
 
@@ -375,11 +406,50 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `role`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-('d2485d50-02a8-43ca-a777-4ea6e18c3fc6', 'VfnOJZwfCP', 'admin@gmail.com', 'user', 1, NULL, '$2y$12$uDwVEAodXQ/rBVT1w35qCOm0F1gLvyU7qooHBc/dBcEOKFgh02ONe', '7CJJ6E4ycrxtn6vF58DJjmCBb34bLt3lpdZ3NJXpVbUSi7eSyPwJDqji8O59', NULL, NULL);
+('d2485d50-02a8-43ca-a777-4ea6e18c3fc6', 'VfnOJZwfCP', 'admin@gmail.com', 'user', 1, NULL, '$2y$12$uDwVEAodXQ/rBVT1w35qCOm0F1gLvyU7qooHBc/dBcEOKFgh02ONe', 'Y3etjBodPYYiZXy7kCtlvgtaRu5j6HrXjV1qn2Wzx4QuAsnxXJaNw8qifKPf', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `variety_products`
+--
+
+CREATE TABLE `variety_products` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `variety_products`
+--
+
+INSERT INTO `variety_products` (`id`, `name`, `slug`, `description`, `image`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('0197fa59-4a05-7022-aba6-c01a282407a5', 'nuevo', 'nuevo', NULL, NULL, 1, '2025-07-11 20:37:25', '2025-07-11 20:37:25', '2025-07-11 16:37:25'),
+('0197fa59-fcc7-70ee-bd2e-e29b3dd057e1', 'test', 'test', NULL, NULL, 1, '2025-07-11 20:38:10', '2025-07-11 20:38:10', '2025-07-11 16:38:10'),
+('0197fa5a-74b6-71a9-a6b6-c5942660fcc4', 'lol', 'lol', NULL, NULL, 1, '2025-07-11 20:38:41', '2025-07-11 20:38:41', '2025-07-11 16:38:41'),
+('0197fa5d-26b2-70a2-8e06-bd881cbe6fde', 'test 2', 'test 2', NULL, NULL, 1, '2025-07-11 20:41:38', '2025-07-11 20:41:38', '2025-07-11 16:41:38'),
+('0197fa5d-b904-7019-aa38-b6a88559ddb2', 'nuevo 2', 'nuevo 2', NULL, NULL, 1, '2025-07-11 20:42:15', '2025-07-11 20:42:15', '2025-07-11 16:42:15'),
+('0197fae6-5fbe-7188-bd5c-bc4aad1f85ac', 'XD', 'XD', NULL, NULL, 1, '2025-07-11 23:11:31', '2025-07-11 23:11:31', '2025-07-11 19:11:31'),
+('0197fae6-e5a1-7311-ad7a-ae02ddd4a609', ':D', ':D', NULL, NULL, 1, '2025-07-11 23:12:05', '2025-07-11 23:12:05', '2025-07-11 19:12:05'),
+('0197fb6e-4732-73ed-9a62-691620a84dd5', 'Peso', 'Peso', NULL, NULL, 1, '2025-07-12 01:39:57', '2025-07-12 01:39:57', '2025-07-11 21:39:57'),
+('0197fb78-ef54-7399-bd96-ab7918205c3e', 'Dimension', 'Dimension', NULL, NULL, 1, '2025-07-12 01:51:36', '2025-07-12 01:51:36', '2025-07-11 21:51:36');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `attribute_products`
+--
+ALTER TABLE `attribute_products`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `cache`
@@ -491,6 +561,12 @@ ALTER TABLE `sessions`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indices de la tabla `variety_products`
+--
+ALTER TABLE `variety_products`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
